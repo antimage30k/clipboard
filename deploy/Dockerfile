@@ -14,7 +14,7 @@ RUN apt install -y python3-pip
 RUN python3 -m pip install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN apt-get install -y git supervisor
-RUN pip3 install flask==1.1.4 gevent gunicorn
+RUN pip3 install flask==1.1.4 gunicorn
 
 COPY ./start.sh /home/
 ENTRYPOINT ["sh", "/home/start.sh"]
