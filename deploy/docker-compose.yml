@@ -1,0 +1,16 @@
+version: '3.4'
+services:
+  clipboard:
+    container_name: clipboard
+    image: clipboard:1.0
+    volumes:
+      - /home/www/clipboard/:/var/www/clipboard/
+      - /home/log/:/var/log/
+    restart: always
+    environment:
+    ports:
+      - 4000:4000
+    privileged: true
+    networks:
+      - bridge
+
