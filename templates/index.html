@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PASTE&COPY</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <script>
+        //通过window.screen.width获取屏幕的宽度
+        const offWidth = window.screen.width / 30; //这里用宽度/30表示1rem取得的px
+        document.getElementsByTagName("html")[0].style.fontSize = offWidth + 'px'; //把rem的值复制给顶级标签html的font-size
+    </script>
+    <style>
+        /*偷个懒就直接全局初始化了*/
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 布局需求,上下都间隔*/
+        div {
+            width: 25rem;
+            margin: 0 auto;
+        }
+
+        textarea {
+            height: 5rem;
+            width: 20rem;
+            margin: 1rem 5rem;
+            font: 1rem 宋体;
+        }
+
+        /* 去处a标签的下划线*/
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            width: 5rem;
+            height: 2rem;
+            text-align: center;
+            font: 1rem "Times New Roman";
+            margin: 0.5rem 1.5rem;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<label>
+    <textarea id="input"></textarea>
+</label>
+
+<div>
+    <button id="button-write" style="background-color:#409EFF">WRITE</button>
+    <button id="button-append" style="background-color:#E6A23C">APPEND</button>
+    <button id="button-clear" style="background-color:#F56C6C">CLEAR</button>
+</div>
+<label>
+    <textarea id="current" readonly>{{ content }}</textarea>
+</label>
+
+<button id="button-copy" style="margin: 0.2rem 5rem; width:20rem; background-color:#67C23A">COPY</button>
+</body>
+<script>
+    const e = function (selector, parent = document) {
+        return parent.querySelector(selector);
+    }
+    const req = function (method, path, data) {
+        const r = new XMLHttpRequest();
+        r.open(method, path);
+        r.setRequestHeader('Content-Type', 'application/json');
+        let json = JSON.stringify({"content": data});
+        r.send(json);
+        window.location.href = '/'
+    }
+
+    const copy = function () {
+        let current = e('#current')
+        current.select()
+        document.execCommand('copy');
+    }
+
+    const bindEvents = function () {
+        let input = e('#input');
+
+        let bw = e('#button-write');
+        bw.addEventListener('click', function () {
+            let content = input.value;
+            req('post', '/write', content);
+        });
+
+        let ba = e('#button-append');
+        ba.addEventListener('click', function () {
+            let content = input.value;
+            req('patch', '/append', content);
+        })
+
+        let bc = e('#button-clear');
+        bc.addEventListener('click', function () {
+            req('delete', '/clear', '');
+        })
+
+        let b_c = e('#button-copy');
+        b_c.addEventListener('click', copy)
+    }
+
+    bindEvents();
+
+</script>
+</html>
