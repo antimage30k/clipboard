@@ -7,10 +7,6 @@ services:
       - /home/www/clipboard/:/var/www/clipboard/
       - /home/log/:/var/log/
     restart: always
-    environment:
     ports:
       - 4000:4000
     privileged: true
-    networks:
-      - bridge
-
