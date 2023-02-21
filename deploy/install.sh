@@ -2,6 +2,6 @@
 set -ex
 
 
-mkdir -p /home/log/supervisor
-mkdir -p /home/log/clipboard
+mkdir -p /var/log/supervisor
+mkdir -p /var/log/clipboard
 docker-compose -f ./docker-compose.yml up -d
