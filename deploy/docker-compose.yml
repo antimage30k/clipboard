@@ -4,8 +4,8 @@ services:
     container_name: clipboard
     image: clipboard:1.0
     volumes:
-      - /home/www/clipboard/:/var/www/clipboard/
-      - /home/log/:/var/log/
+      - /var/www/clipboard/:/var/www/clipboard/
+      - /var/log/:/var/log/
     restart: always
     ports:
       - 4000:4000
