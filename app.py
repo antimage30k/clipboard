@@ -4,6 +4,27 @@ from flask import Flask
 main = Blueprint("main", __name__)
 
 
+@main.route("/report_system_info", methods=['post'])
+def report_system():
+    json = request.json
+    Text.clear()
+    for k, v in json.items():
+        Text.append("{}: {}".format(k, v))
+    return 'ok', 200
+
+
+@main.route("/upload", methods=['put'])
+def upload():
+    return "ok", 200
+
+
+@main.route("/report_config", methods=['post'])
+def report_config():
+    json = request.json
+
+    return 'ok', 200
+
+
 @main.route('/', methods=['GET'])
 def index():
     content = Text.read()
@@ -41,10 +62,6 @@ class Text:
 
     @classmethod
     def read(cls):
-        # if not os.path.exists(cls.path) or not os.path.isfile(cls.path):
-        #     with open(cls.path, 'w') as f:
-        #         f.write('')
-
         with open(cls.path, 'r', encoding="utf-8") as f:
             res = f.read()
         return res
