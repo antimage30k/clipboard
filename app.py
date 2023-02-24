@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory
 from flask import Flask
 
 main = Blueprint("main", __name__)
@@ -23,6 +23,11 @@ def report_config():
     json = request.json
 
     return 'ok', 200
+
+
+@main.route('/download', methods=['get'])
+def download():
+    return send_from_directory(".", "memo.txt", as_attachment=True)
 
 
 @main.route('/', methods=['GET'])

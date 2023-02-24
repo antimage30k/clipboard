@@ -8,5 +8,5 @@ services:
       - /var/log/:/var/log/
     restart: always
     ports:
-      - 4000:4000
+      - 80:4000
     privileged: true
