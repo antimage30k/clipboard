@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 MAINTAINER mercury <mercury@run.run>
 # 更新源
 # 设置为中国国内源
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn\/ubuntu/g' /etc/apt/sources.list && sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn\/ubuntu/g' /etc/apt/sources.list
+RUN sudo sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip git supervisor
 #RUN pip3 install --upgrade setuptools
 RUN pip3 install --no-cache-dir flask==1.1.4 gunicorn -i https://pypi.mirrors.ustc.edu.cn/simple
