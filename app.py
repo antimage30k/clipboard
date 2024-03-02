@@ -17,7 +17,7 @@ def write():
     return 'ok', 200
 
 
-@main.route('/append', methods=['PATCH'])
+@main.route('/append', methods=['POST'])
 def append():
     content = request.json['content']
     Text.append(content)
